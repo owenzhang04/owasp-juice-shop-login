@@ -7,7 +7,8 @@
 **Course:** CS 477 - Information Security  
 **Assignment:** HW 2-B: OWASP Juice Shop / OWASP Top 10  
 **Author:** Owen Zhang  
-**Repository:** [https://github.com/owenzhang04/owasp-juice-shop-login](https://github.com/owenzhang04/owasp-juice-shop-login)
+**Repository:** [https://github.com/owenzhang04/owasp-juice-shop-login](https://github.com/owenzhang04/owasp-juice-shop-login)  
+**AI Usage Disclosure:** I used Gemini 3.8 Flash High on Antigravity.
 
 ---
 
