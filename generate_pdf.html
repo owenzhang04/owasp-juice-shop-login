@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CS 477 HW 2-B: OWASP Juice Shop / OWASP Top 10 - Owen Zhang</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 12mm 14mm 12mm 14mm;
+      @bottom-right {
+        content: "Page " counter(page);
+        font-size: 8pt;
+        color: #666;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #1f2937;
+      background: #ffffff;
+      line-height: 1.4;
+      font-size: 9pt;
+    }
+
+    /* Header */
+    .doc-header {
+      border-bottom: 2.5px solid #4527a0;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-left h1 {
+      font-size: 15pt;
+      color: #1e1b4b;
+      margin-bottom: 3px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .header-left h2 {
+      font-size: 10.5pt;
+      color: #4527a0;
+      font-weight: 600;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 8.5pt;
+      color: #4b5563;
+      line-height: 1.35;
+    }
+
+    .header-right strong {
+      color: #111827;
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 10px;
+    }
+
+    .section-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f5f3ff;
+      border-left: 4px solid #4527a0;
+      padding: 5px 10px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #311b92;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge {
+      font-size: 7.5pt;
+      background: #ede7f6;
+      color: #4527a0;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-weight: 600;
+      border: 1px solid #d1c4e9;
+    }
+
+    p {
+      margin-bottom: 7px;
+      text-align: justify;
+    }
+
+    /* Vulnerability Cards */
+    .vuln-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 8px 0 10px 0;
+    }
+
+    .vuln-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 7px 9px;
+      font-size: 8pt;
+    }
+
+    .vuln-card-title {
+      font-weight: 700;
+      color: #991b1b;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .vuln-card strong {
+      color: #1f2937;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 7px 10px;
+      border-radius: 5px;
+      font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+      font-size: 8pt;
+      line-height: 1.35;
+      margin: 6px 0 8px 0;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: "SF Mono", Monaco, Menlo, Consolas, monospace;
+      font-size: 8.5pt;
+      background: #f3f4f6;
+      color: #b91c1c;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    .keyword { color: #cba6f7; font-weight: bold; }
+    .function { color: #89b4fa; }
+    .string { color: #a6e3a1; }
+    .comment { color: #6c7086; font-style: italic; }
+    .variable { color: #f38ba8; }
+
+    /* Links & Repos */
+    .repo-banner {
+      background: #fff7ed;
+      border: 1.5px solid #fdba74;
+      border-radius: 6px;
+      padding: 7px 10px;
+      margin: 7px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .repo-banner strong {
+      color: #c2410c;
+    }
+
+    .repo-link {
+      font-family: "SF Mono", monospace;
+      font-size: 8.5pt;
+      color: #0369a1;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Screenshots Grid */
+    .screenshots-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin: 6px 0;
+    }
+
+    .screenshot-figure {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      padding: 4px;
+      text-align: center;
+    }
+
+    .screenshot-figure img {
+      width: 100%;
+      height: auto;
+      max-height: 145px;
+      object-fit: contain;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .screenshot-caption {
+      font-size: 7pt;
+      color: #4b5563;
+      margin-top: 3px;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .screenshot-full {
+      grid-column: span 2;
+    }
+
+    .screenshot-full img {
+      max-height: 135px;
+    }
+
+    .page-break {
+      page-break-after: always;
+      break-after: page;
+    }
+
+    ul {
+      margin-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="header-left">
+      <h1>HW 2-B: OWASP Juice Shop / OWASP Top 10</h1>
+      <h2>CS 477 — Information Security</h2>
+    </div>
+    <div class="header-right">
+      <strong>Student:</strong> Owen Zhang<br>
+      <strong>GitHub:</strong> owenzhang04<br>
+      <strong>Date:</strong> October 3, 2026
+    </div>
+  </header>
+
+  <!-- PART 1 -->
+  <section class="section">
+    <div class="section-title-bar">
+      <span class="section-title">Part 1: Secure Feature Design</span>
+      <span class="badge">Write-up: ~110 words</span>
+    </div>
+
+    <p>
+      In OWASP Juice Shop, three critical vulnerabilities were identified:
+      (1) <strong>SQL Injection (SQLi)</strong> in the authentication query via <code>' OR 1=1 --</code>, granting unauthorized administrative access;
+      (2) <strong>Cross-Site Scripting (XSS)</strong> in search queries and profile forms reflecting unsanitized markup through dangerous sinks like <code>innerHTML</code>; and
+      (3) <strong>Broken Authentication / Insecure Password Storage</strong>, storing unsalted MD5 hashes vulnerable to offline rainbow table lookup.
+    </p>
+
+    <div class="vuln-grid">
+      <div class="vuln-card">
+        <div class="vuln-card-title">⚠️ 1. SQL Injection</div>
+        <strong>Exploit:</strong> Tautology <code>' OR 1=1 --</code> injects boolean logic into SQL queries.<br>
+        <strong>Mitigation:</strong> Parameterized statements (prepared queries) bind inputs as literal parameters, preventing query alteration.
+      </div>
+      <div class="vuln-card">
+        <div class="vuln-card-title">⚠️ 2. Cross-Site Scripting</div>
+        <strong>Exploit:</strong> Script payload <code>&lt;script&gt;</code> executes in user context.<br>
+        <strong>Mitigation:</strong> Contextual output encoding and strict <code>textContent</code> DOM sinks, enforced by Content Security Policy.
+      </div>
+      <div class="vuln-card">
+        <div class="vuln-card-title">⚠️ 3. Insecure Passwords</div>
+        <strong>Exploit:</strong> Unsalted fast hashes cracked via precomputed lookup tables.<br>
+        <strong>Mitigation:</strong> Adaptive salted hashing with <code>bcrypt</code> (work factor &ge; 12) to resist offline brute force.
+      </div>
+    </div>
+
+    <p style="margin-bottom: 3px;">
+      <strong>Secure Password Handling Implementation (Node.js <code>bcrypt</code>):</strong>
+    </p>
+    <pre><code><span class="keyword">const</span> bcrypt = <span class="function">require</span>(<span class="string">'bcryptjs'</span>);
+
+<span class="comment">// 1. User Registration: Hash password with a unique, cryptographically random salt (cost: 12)</span>
+<span class="keyword">const</span> SALT_ROUNDS = <span class="string">12</span>;
+<span class="keyword">const</span> passwordHash = <span class="keyword">await</span> bcrypt.<span class="function">hash</span>(plainPassword, SALT_ROUNDS);
+
+<span class="comment">// 2. User Authentication: Timing-safe verification against stored hash</span>
+<span class="keyword">const</span> isPasswordValid = <span class="keyword">await</span> bcrypt.<span class="function">compare</span>(submittedPassword, storedHash);</code></pre>
+  </section>
+
+  <!-- PART 2 -->
+  <section class="section">
+    <div class="section-title-bar">
+      <span class="section-title">Part 2: Front-End Form Implementation & Dual Validation</span>
+      <span class="badge">Write-up: ~105 words</span>
+    </div>
+
+    <div class="repo-banner">
+      <div>
+        <strong>Public GitHub Repository:</strong>
+        <a class="repo-link" href="https://github.com/owenzhang04/owasp-juice-shop-login">https://github.com/owenzhang04/owasp-juice-shop-login</a>
+      </div>
+      <span class="badge">MIT Licensed • Node.js</span>
+    </div>
+
+    <p>
+      I developed a responsive login interface mirroring OWASP Juice Shop’s aesthetic, incorporating email, password, and visibility toggling. The architecture enforces <strong>dual-layer validation</strong>:
+    </p>
+    <ul>
+      <li><strong>Client-Side Validation (<code>public/app.js</code>):</strong> Intercepts form submissions to block blank inputs, verifies that the email contains the mandatory <code>"@"</code> symbol, and enforces a minimum password length of 8 characters (<code>password.length &ge; 8</code>). UI errors and alerts are populated exclusively via <code>textContent</code> to prevent DOM-based XSS.</li>
+      <li><strong>Server-Side Validation (<code>server.js</code>):</strong> Implements zero-trust defense by re-validating non-emptiness, RFC 5322 email syntax, and password length. Authentication uses parameterized lookup logic and salted key derivation (<code>scrypt</code>/<code>bcrypt</code>) with constant-time equality checks (<code>crypto.timingSafeEqual</code>).</li>
+    </ul>
+  </section>
+
+  <!-- PAGE BREAK FOR CLEAN LAYOUT -->
+  <div class="page-break"></div>
+
+  <!-- PART 3 -->
+  <section class="section">
+    <div class="section-title-bar">
+      <span class="section-title">Part 3: Exploitation Attempt & Security Findings</span>
+      <span class="badge">Write-up: ~120 words</span>
+    </div>
+
+    <p>
+      I attempted two primary attacks against the newly implemented login system:
+      (1) <strong>SQL Injection (SQLi):</strong> Inputting <code>' OR 1=1 --</code> and <code>admin@juice-sh.op' --</code> to bypass credentials; and
+      (2) <strong>Cross-Site Scripting (XSS):</strong> Injecting <code>&lt;script&gt;alert('XSS')&lt;/script&gt;@juice-sh.op</code> to trigger browser code execution.
+    </p>
+
+    <p>
+      <strong>Execution Results:</strong> Both attacks failed. The client-side validator immediately blocked the SQLi payload because it lacked an <code>@</code> symbol. When bypassing the client interface via direct HTTP POST requests, the server-side validator rejected malformed inputs with <code>HTTP 400 Bad Request</code>. For the targeted email attack, the parameterized database lookup treated the string literally, returning <code>HTTP 401 Unauthorized</code> without SQL evaluation. XSS payloads were treated purely as string data in safe <code>textContent</code> sinks without script execution.
+    </p>
+
+    <p>
+      <strong>Proposed Fix & Hardening:</strong> Maintain a strict Content Security Policy (<code>Content-Security-Policy: default-src 'self'</code>) and enforce server-side RFC 5322 regex sanitization to safeguard against any bypassed client controls.
+    </p>
+
+    <!-- SCREENSHOTS GRID -->
+    <div class="screenshots-container">
+      <div class="screenshot-figure">
+        <img src="screenshots/1_clean_login.png" alt="Clean Login Form">
+        <div class="screenshot-caption"><strong>Figure 1:</strong> Initial clean login form mimicking OWASP Juice Shop UI.</div>
+      </div>
+
+      <div class="screenshot-figure">
+        <img src="screenshots/2_client_validation_empty.png" alt="Client Validation on Empty Submission">
+        <div class="screenshot-caption"><strong>Figure 2:</strong> Client-side validation blocking empty form submissions.</div>
+      </div>
+
+      <div class="screenshot-figure">
+        <img src="screenshots/3_sqli_attack_attempt.png" alt="SQLi Attack Blocked">
+        <div class="screenshot-caption"><strong>Figure 3:</strong> SQL Injection attempt (<code>' OR 1=1 --</code>) blocked by email validation.</div>
+      </div>
+
+      <div class="screenshot-figure">
+        <img src="screenshots/4_xss_attack_attempt.png" alt="XSS Attack Blocked">
+        <div class="screenshot-caption"><strong>Figure 4:</strong> XSS attempt safely rendered as text without script execution.</div>
+      </div>
+
+      <div class="screenshot-figure screenshot-full">
+        <img src="screenshots/5_server_defense_logs.png" alt="Server Defense Logs & Automated Tests">
+        <div class="screenshot-caption"><strong>Figure 5:</strong> Automated security test suite (9/9 passed) & backend server-side rejection logs.</div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OWASP Juice Shop - Login</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Favicon icon mimicking Juice Shop -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧃</text></svg>">
+</head>
+<body>
+  <!-- Navigation Bar mimicking Juice Shop -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <span class="brand-icon">🧃</span>
+        <span class="brand-title">OWASP Juice Shop</span>
+      </div>
+      <div class="nav-links">
+        <span class="nav-badge">CS 477 - Secure Login Mockup</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Login Card Container -->
+  <main class="login-wrapper">
+    <div class="card login-card">
+      <div class="card-header">
+        <div class="card-avatar">
+          <svg class="avatar-icon" viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+          </svg>
+        </div>
+        <h1 class="card-title">Login</h1>
+      </div>
+
+      <!-- Feedback / Alert Banner -->
+      <div id="alertBox" class="alert hidden" role="alert"></div>
+
+      <!-- Login Form -->
+      <form id="loginForm" novalidate autocomplete="off">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <div class="input-container">
+            <span class="input-icon">✉️</span>
+            <input 
+              type="text" 
+              id="email" 
+              name="email" 
+              placeholder="e.g. admin@juice-sh.op"
+              required 
+            />
+          </div>
+          <span class="field-error" id="emailError"></span>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password <span class="required">*</span></label>
+          <div class="input-container">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              placeholder="Minimum 8 characters"
+              required 
+            />
+            <button type="button" id="togglePassword" class="toggle-password-btn" aria-label="Toggle password visibility">👁️</button>
+          </div>
+          <span class="field-error" id="passwordError"></span>
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="rememberMe" name="rememberMe" />
+            <span>Remember me</span>
+          </label>
+          <a href="#forgot" class="forgot-link">Forgot your password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" class="btn btn-primary">
+          <span id="btnText">Log in</span>
+          <span id="btnSpinner" class="spinner hidden"></span>
+        </button>
+      </form>
+
+      <!-- Security Notice Footer -->
+      <div class="card-footer">
+        <p class="signup-prompt">
+          Not yet a customer? <a href="#register">Register here</a>
+        </p>
+        <div class="security-badge">
+          🛡️ Protected with Dual-Layer Validation & Parameterized Authentication
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

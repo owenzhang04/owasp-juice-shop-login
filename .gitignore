@@ -1,0 +1,4 @@
+node_modules/
+scratch_chrome/
+.DS_Store
+*.log

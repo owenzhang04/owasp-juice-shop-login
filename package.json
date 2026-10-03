@@ -1,0 +1,26 @@
+{
+  "name": "owasp-juice-shop-login",
+  "version": "1.0.0",
+  "description": "CS 477 HW 2-B: Secure OWASP Juice Shop Login Form with Client-Side and Server-Side Validation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owenzhang04/owasp-juice-shop-login.git"
+  },
+  "keywords": [
+    "owasp",
+    "juice-shop",
+    "security",
+    "sql-injection-mitigation",
+    "xss-prevention",
+    "client-validation",
+    "server-validation",
+    "cs477"
+  ],
+  "author": "Owen Zhang",
+  "license": "MIT"
+}
